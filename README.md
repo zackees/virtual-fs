@@ -1,21 +1,35 @@
-# template-python-cmd
-A template for quickly making a python lib that has a command line program attached
+# virtual-fs
 
-[![Linting](../../actions/workflows/lint.yml/badge.svg)](../../actions/workflows/lint.yml)
+Powerful Virtual File System abstraction. Drop in replacement for pathlib.Path.
 
-[![MacOS_Tests](../../actions/workflows/push_macos.yml/badge.svg)](../../actions/workflows/push_macos.yml)
-[![Ubuntu_Tests](../../actions/workflows/push_ubuntu.yml/badge.svg)](../../actions/workflows/push_ubuntu.yml)
-[![Win_Tests](../../actions/workflows/push_win.yml/badge.svg)](../../actions/workflows/push_win.yml)
+Easily convert your pathlib.Path into a FSPath, which can either be the remote fileobject, or a local one, under the hood
 
-Replace `template-python-cmd` and `template_python_cmd` with your command. Run tox until it's
-correct.
+  * Operations supported
+    * ls
+    * cwd
+    * read
+    * write
+    * exists
+    * is file
+    * is dir
+    * parent
+    * /
 
-To develop software, run `. ./activate.sh`
 
-# Windows
+# Example
 
-This environment requires you to use `git-bash`.
+```python
 
-# Linting
+from virtual_fs import Vfs
 
-Run `./lint.sh` to find linting errors using `pylint`, `flake8` and `mypy`.
+def unit_test():
+    cwd = Vfs.begin("remote:bucket/my", config=None)
+    file = cwd / "info.json"
+    text = file.read_text()
+    out = cwd / "out.json"
+    out.write_text(out)
+    all_files = cwd.ls()
+    print(f"Found {len(all_files)} files")
+    assert 2 == len(all_files), f"Excpected 2 files, but had {len(all_files)}"
+
+```
