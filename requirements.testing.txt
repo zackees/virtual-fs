@@ -5,3 +5,4 @@ pytest
 tox
 ruff
 pytest-xdist
+pyright
