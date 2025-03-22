@@ -1,6 +1,10 @@
 # virtual-fs
 
-Powerful Virtual File System abstraction. Drop in replacement for pathlib.Path.
+Powerful Virtual File System abstraction api. Drop in replacement for pathlib.Path.
+
+![image](https://github.com/user-attachments/assets/f72d8c45-3ad0-4378-98f5-77b1fd0da88d)
+
+This abstraction is made possible thanks to [rclone](https://rclone.org) and my python api bindings called [rclone-api](https://github.com/zackees/rclone-api).
 
 Easily convert your pathlib.Path into a FSPath, which can either be the remote fileobject, or a local one, under the hood
 
