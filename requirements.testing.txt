@@ -1,0 +1,7 @@
+black
+isort
+mypy
+pytest
+tox
+ruff
+pytest-xdist
