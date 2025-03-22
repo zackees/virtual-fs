@@ -6,8 +6,7 @@ Powerful Virtual File System abstraction api. Drop in replacement for pathlib.Pa
 
 from virtual_fs import Vfs
 
-def unit_test():
-    cwd = Vfs.begin("remote:bucket/my", config=None)
+def do_operation(cwd: FSPath):
     file = cwd / "info.json"
     text = file.read_text()
     out = cwd / "out.json"
@@ -16,9 +15,13 @@ def unit_test():
     print(f"Found {len(all_files)} files")
     assert 2 == len(all_files), f"Excpected 2 files, but had {len(all_files)}"
 
+def unit_test():
+  cwd = Vfs.begin("remote:bucket/my", config=None)
+  do_operation(cwd)
+
 def unit_test2():
   cwd = Vfs.begin("mydir")
-  assert cwd.is_real()
+  do_operation(cwd)
 
 ```
 
