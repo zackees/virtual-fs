@@ -50,18 +50,7 @@ def do_test(cwd: FSPath):
 
 This abstraction is made possible thanks to [rclone](https://rclone.org) and my python api bindings called [rclone-api](https://github.com/zackees/rclone-api).
 
-Easily convert your pathlib.Path into a FSPath, which can either be the remote fileobject, or a local one, under the hood
-
-  * Operations supported
-    * ls
-    * cwd
-    * read
-    * write
-    * exists
-    * is file
-    * is dir
-    * parent
-    * /
+Easily convert your `pathlib.Path` into an `FSPath`, which will either operate on a local file object, or one on a remote.
 
 
 
