@@ -1,15 +1,28 @@
 # virtual-fs
 
-Powerful Virtual File System abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both loval and remote files.
+Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then you can this api will allow you access paths like `remote:Bucket/path/file.txt`.
 
-This was built so that I could work with files in a docker system. Think of this like mounting files, but at the
-api level. This will allow you to run unprivleded docker containers that manipulate remote files.
+## Docker Users
+
+This library is built for you. If you are trying to do a `/mount` and having problems because of privileges then this api will give you an escape hatch. Instead mounting a virtual file system, you use an api in python that will grant you `ls`, `read`, `write` and directory traversal.
+
+To retro fit your code: Swap out `pathlib.Path` for `virtual_fs.FSPath` and apply minor fixes.
+
 
 ```python
 
 from virtual_fs import Vfs
 
-def do_operation(cwd: FSPath):
+def unit_test():
+  config = Path("rclone.config")  # Or use None to get a default.
+  with Vfs.begin("remote:bucket/my", config=config) as cwd:
+    do_test(cwd)
+
+def unit_test2():
+  with Vfs.begin("mydir") as cwd:
+    do_test(cwd)
+
+def do_test(cwd: FSPath):
     file = cwd / "info.json"
     text = file.read_text()
     out = cwd / "out.json"
@@ -18,13 +31,6 @@ def do_operation(cwd: FSPath):
     print(f"Found {len(all_files)} files")
     assert 2 == len(all_files), f"Excpected 2 files, but had {len(all_files)}"
 
-def unit_test():
-  cwd = Vfs.begin("remote:bucket/my", config=None)
-  do_operation(cwd)
-
-def unit_test2():
-  cwd = Vfs.begin("mydir")
-  do_operation(cwd)
 
 ```
 
