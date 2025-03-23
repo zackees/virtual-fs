@@ -45,9 +45,6 @@ class Vfs:
     ) -> Mount:
         from rclone_api import Rclone
 
-        rclone_conf = rclone_conf or Vfs.find_conf_file()
-        if rclone_conf is None:
-            raise ValueError("rclone_conf not found")
         if isinstance(rclone_conf, str):
             rclone_conf = Config(text=rclone_conf)
         assert rclone_conf is not None
@@ -80,18 +77,9 @@ class Vfs:
 
     @staticmethod
     def find_conf_file() -> Path | None:
-        import os
+        from rclone_api.config import find_conf_file
 
-        # if os.environ.get("RCLONE_CONFIG"):
-        #     return Path(os.environ["RCLONE_CONFIG"])
-        # return None
-        # rclone_conf = rclone_conf or Path.cwd() / "rclone.conf"
-
-        if os.environ.get("RCLONE_CONFIG"):
-            return Path(os.environ["RCLONE_CONFIG"])
-        if (conf := Path.cwd() / "rclone.conf").exists():
-            return conf
-        return None
+        return find_conf_file()
 
 
 __all__ = ["FSPath", "RemoteFS"]

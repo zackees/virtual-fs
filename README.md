@@ -1,6 +1,9 @@
 # virtual-fs
 
-Powerful Virtual File System abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both loval and remote files
+Powerful Virtual File System abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both loval and remote files.
+
+This was built so that I could work with files in a docker system. Think of this like mounting files, but at the
+api level. This will allow you to run unprivleded docker containers that manipulate remote files.
 
 ```python
 
