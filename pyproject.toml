@@ -14,7 +14,7 @@ dependencies = [
     "rclone-api>=1.5.26",
 ]
 # Change this with the version number bump.
-version = "1.0.0"
+version = "1.0.1"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -44,4 +44,4 @@ ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
 
 [project.scripts]
-virtual_vfs = "virtual_fs.cli:main"
+virtual-vfs-mount = "virtual_fs.cli:main"

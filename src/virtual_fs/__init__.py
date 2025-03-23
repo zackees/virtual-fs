@@ -14,9 +14,11 @@ class Vfs:
         vfs: RemoteFS | RealFS
         if Vfs.looks_like_remote_path(src):
             vfs = Vfs.create_remote(src=src, rclone_conf=rclone_conf)
+            return vfs.cwd()
         else:
-            vfs = Vfs.create_local(src=src)
-        return vfs.cwd()
+            cwd = RealFS().from_path(src)
+            return cwd
+        raise ValueError("Should not be here.")
 
     @staticmethod
     def create_remote(src: str | Path, rclone_conf: RcloneConfig = None) -> RemoteFS:
@@ -27,8 +29,8 @@ class Vfs:
         return fs
 
     @staticmethod
-    def create_local(src: str | Path) -> RemoteFS:
-        fs = RealFS.from_path(src=src)
+    def create_local() -> RealFS:
+        fs = RealFS()
         return fs
 
     @staticmethod
@@ -39,4 +41,4 @@ class Vfs:
         return ":" in path_str and not re.match(r"^[a-zA-Z]:[/\\]", path_str)
 
 
-__all__ = ["begin", "FSPath", "RemoteFS"]
+__all__ = ["FSPath", "RemoteFS"]

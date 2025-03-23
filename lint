@@ -9,7 +9,7 @@ echo Running black src tests
 uv run black src tests
 echo Running isort src tests
 uv run isort --profile black src tests
-echo Running mypy src
-uv run mypy src tests
+echo Running pyright src tests
+uv run pyright src tests --threads
 echo Linting complete!
 exit 0
