@@ -126,4 +126,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    sys.argv.append("ls")
+    sys.argv.append("dst:TorrentBooks")
     sys.exit(main())
