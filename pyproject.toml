@@ -14,7 +14,7 @@ dependencies = [
     "rclone-api>=1.5.37",
 ]
 # Change this with the version number bump.
-version = "1.0.7"
+version = "1.0.8"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
