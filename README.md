@@ -29,7 +29,7 @@ def do_test(cwd: FSPath):
     out.write_text(out)
     all_files = cwd.ls()
     print(f"Found {len(all_files)} files")
-    assert 2 == len(all_files), f"Excpected 2 files, but had {len(all_files)}"
+    assert 2 == len(all_files), f"Expected 2 files, but had {len(all_files)}"
 
 
 ```
