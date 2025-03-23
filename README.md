@@ -27,9 +27,10 @@ def do_test(cwd: FSPath):
     text = file.read_text()
     out = cwd / "out.json"
     out.write_text(out)
-    all_files = cwd.ls()
-    print(f"Found {len(all_files)} files")
-    assert 2 == len(all_files), f"Expected 2 files, but had {len(all_files)}"
+    files, dirs  = cwd.ls()
+    print(f"Found {len(files)} files")
+    assert 2 == len(files), f"Expected 2 files, but had {len(files)}"
+    assert 0 == len(dirs), f"Expected 0 dirs, but had {len(dirs)}"
 
 
 ```
