@@ -1,5 +1,8 @@
 # virtual-fs
 
+
+![image](https://github.com/user-attachments/assets/0f9d5dbc-e0e5-4086-9c7a-fc8e08f57943)
+
 Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then  this api will allow you access to paths like `remote:Bucket/path/file.txt`.
 
 ## Docker Users
@@ -35,7 +38,6 @@ def do_test(cwd: FSPath):
 
 ```
 
-![image](https://github.com/user-attachments/assets/0f9d5dbc-e0e5-4086-9c7a-fc8e08f57943)
 
 
 This abstraction is made possible thanks to [rclone](https://rclone.org) and my python api bindings called [rclone-api](https://github.com/zackees/rclone-api).
