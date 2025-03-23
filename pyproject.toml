@@ -45,3 +45,4 @@ disable_error_code = ["import-untyped"]
 
 [project.scripts]
 virtual-vfs-mount = "virtual_fs.cli_mount:main"
+vfs = "virtual_fs.cli:main"
