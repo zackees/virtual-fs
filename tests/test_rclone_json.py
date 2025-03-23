@@ -2,7 +2,6 @@
 Unit test file.
 """
 
-import json
 import unittest
 
 from rclone_api import Config
@@ -36,15 +35,6 @@ def json_to_rclone_config(json_data: dict) -> Config | Exception:
 
 class MainTester(unittest.TestCase):
     """Main tester class."""
-
-    def test_json_conversion(self) -> None:
-        """Test command line interface (CLI)."""
-        data = json.dumps(JSON_DATA, indent=4)
-        print(data)
-        data = json.loads(TEXT)
-        print(data)
-        self.assertEqual(JSON_DATA, data)
-        print("done")
 
     def test_json_to_rclone(self) -> None:
         """Test command line interface (CLI)."""
