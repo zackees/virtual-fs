@@ -1,6 +1,6 @@
 # virtual-fs
 
-Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then you can this api will allow you access paths like `remote:Bucket/path/file.txt`.
+Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then  this api will allow you access to paths like `remote:Bucket/path/file.txt`.
 
 ## Docker Users
 
