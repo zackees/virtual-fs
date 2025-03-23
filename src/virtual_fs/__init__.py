@@ -18,6 +18,7 @@ class Vfs:
               print(cwd.ls())
         """
         vfs: RemoteFS | RealFS
+        rclone_conf = rclone_conf or Vfs.find_default_rclone_conf()
         if Vfs.looks_like_remote_path(src):
             vfs = Vfs.create_remote(src=src, rclone_conf=rclone_conf)
             return vfs.cwd()
