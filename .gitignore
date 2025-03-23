@@ -140,3 +140,4 @@ activate
 **/.DS_Store
 uv.lock
 .aider*
+*.conf
