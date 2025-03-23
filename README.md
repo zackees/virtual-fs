@@ -26,11 +26,11 @@ from virtual_fs import Vfs
 
 def unit_test():
   config = Path("rclone.config")  # Or use None to get a default.
-  with Vfs.begin("remote:bucket/my", config=config) as cwd:
-    do_test(cwd)
+  cwd = Vfs.begin("remote:bucket/my", config=config)
+  do_test(cwd)
 
 def unit_test2():
-  with Vfs.begin("mydir") as cwd:
+  with Vfs.begin("mydir") as cwd:  # Closes filesystem when done on cwd.
     do_test(cwd)
 
 def do_test(cwd: FSPath):
