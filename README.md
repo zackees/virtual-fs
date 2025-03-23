@@ -65,3 +65,98 @@ Easily convert your pathlib.Path into a FSPath, which can either be the remote f
 
 
 
+```python
+class FSPath:
+    def __init__(self, fs: FS, path: str) -> None:
+        self.fs: FS = fs
+        self.path: str = path
+        self.fs_holder: FS | None = None
+
+    def set_owner(self) -> None:
+        self.fs_holder = self.fs
+
+    def is_real_fs(self) -> bool:
+        return isinstance(self.fs, RealFS)
+    
+    def lspaths(self) -> "tuple[list[FSPath], list[FSPath]]":
+        filenames, dirnames = self.ls()
+        fpaths: list[FSPath] = [self / name for name in filenames]
+        dpaths: list[FSPath] = [self / name for name in dirnames]
+        return fpaths, dpaths
+
+    def ls(self) -> tuple[list[str], list[str]]:
+        filenames: list[str]
+        dirnames: list[str]
+        filenames, dirnames = self.fs.ls(self.path)
+        return filenames, dirnames
+
+    def mkdir(self, parents=True, exist_ok=True) -> None:
+        self.fs.mkdir(self.path, parents=parents, exist_ok=exist_ok)
+
+    def read_text(self) -> str:
+        data = self.read_bytes()
+        return data.decode("utf-8")
+
+    def read_bytes(self) -> bytes:
+        data: bytes | None = None
+        try:
+            data = self.fs.read_bytes(self.path)
+            return data
+        except Exception as e:
+            raise FileNotFoundError(f"File not found: {self.path}, because of {e}")
+
+    def exists(self) -> bool:
+        return self.fs.exists(self.path)
+
+    def __str__(self) -> str:
+        return self.path
+
+    def __repr__(self) -> str:
+        return f"FSPath({self.path})"
+
+    def __enter__(self) -> "FSPath":
+        if self.fs_holder is not None:
+            warnings.warn("This operation is reserved for the cwd returned by FS")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        if self.fs_holder is not None:
+            self.fs_holder.dispose()
+            self.fs_holder = None
+
+
+
+    def write_text(self, data: str, encoding: str | None = None) -> None:
+        if encoding is None:
+            encoding = "utf-8"
+        self.write_bytes(data.encode(encoding))
+
+    def write_bytes(self, data: bytes) -> None:
+        self.fs.write_binary(self.path, data)
+
+    def rmtree(self, ignore_errors=False) -> None:
+        assert self.exists(), f"Path does not exist: {self.path}"
+        # check fs is RealFS
+        assert isinstance(self.fs, RealFS)
+        shutil.rmtree(self.path, ignore_errors=ignore_errors)
+
+
+
+    @property
+    def name(self) -> str:
+        return Path(self.path).name
+
+    @property
+    def parent(self) -> "FSPath":
+        parent_path = Path(self.path).parent
+        parent_str = parent_path.as_posix()
+        return FSPath(self.fs, parent_str)
+
+    def __truediv__(self, other: str) -> "FSPath":
+        new_path = Path(self.path) / other
+        return FSPath(self.fs, new_path.as_posix())
+
+    # hashable
+    def __hash__(self) -> int:
+        return hash(f"{repr(self.fs)}:{self.path}")
+```
