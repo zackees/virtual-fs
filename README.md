@@ -5,6 +5,14 @@
 
 Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then  this api will allow you access to paths like `remote:Bucket/path/file.txt`.
 
+## ENVS
+
+  * RCLONE_CONFIG
+    * path string of the rclone.conf text file
+
+  * RCLONE_CONFIG_JSON
+    * string content of rclone config.json
+
 ## Docker Users
 
 This library is built for you. If you are trying to do a `/mount` and having problems because of privileges then this api will give you an escape hatch. Instead mounting a virtual file system, you use an api in python that will grant you `ls`, `read`, `write` and directory traversal.
