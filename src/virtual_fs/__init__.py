@@ -10,7 +10,13 @@ class Vfs:
 
     @staticmethod
     def begin(src: str | Path, rclone_conf: RcloneConfig = None) -> FSPath:
-        """Begins a new session with the given path, with operator on this object to ensure proper cleanup."""
+        """
+        Begins a new session with the given path, with operator on this object to ensure proper cleanup.
+
+        Example:
+          with Vfs.begin("path/to/dir") as cwd:
+              print(cwd.ls())
+        """
         vfs: RemoteFS | RealFS
         if Vfs.looks_like_remote_path(src):
             vfs = Vfs.create_remote(src=src, rclone_conf=rclone_conf)
