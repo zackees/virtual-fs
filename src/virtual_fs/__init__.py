@@ -27,6 +27,15 @@ class Vfs:
         raise ValueError("Should not be here.")
 
     @staticmethod
+    def find_default_rclone_conf() -> Path | None:
+        from rclone_api.config import find_conf_file
+
+        conf_file: Path | None = find_conf_file(rclone=None)
+        if isinstance(conf_file, Exception):
+            raise conf_file
+        return conf_file
+
+    @staticmethod
     def create_remote(src: str | Path, rclone_conf: RcloneConfig = None) -> RemoteFS:
         sanitized_path = Path(src).as_posix()
         fs: RemoteFS = RemoteFS.from_rclone_config(
