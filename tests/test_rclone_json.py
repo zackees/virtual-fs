@@ -30,22 +30,8 @@ JSON_DATA = {
 }
 
 
-def _json_to_rclone_config(json_data: dict) -> str:
-    """Convert JSON data to rclone config."""
-    out = ""
-    for key, value in json_data.items():
-        out += f"[{key}]\n"
-        for k, v in value.items():
-            out += f"{k} = {v}\n"
-    return out
-
-
 def json_to_rclone_config(json_data: dict) -> Config | Exception:
-    try:
-        text = _json_to_rclone_config(json_data)
-        return Config(text=text)
-    except Exception as e:
-        return e
+    return Config.from_json(json_data)
 
 
 class MainTester(unittest.TestCase):
@@ -62,7 +48,8 @@ class MainTester(unittest.TestCase):
 
     def test_json_to_rclone(self) -> None:
         """Test command line interface (CLI)."""
-        rclone_conf = _json_to_rclone_config(JSON_DATA)
+        rclone_conf = json_to_rclone_config(JSON_DATA)
+        self.assertFalse(isinstance(rclone_conf, Exception))
         print(rclone_conf)
         print("done")
 
