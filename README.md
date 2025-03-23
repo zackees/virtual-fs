@@ -1,6 +1,6 @@
 # virtual-fs
 
-Powerful Virtual File System abstraction api. Drop in replacement for pathlib.Path.
+Powerful Virtual File System abstraction api. Connects to any backrnd supported by Rclone. Drop in replacement for pathlib.Path.
 
 ```python
 
