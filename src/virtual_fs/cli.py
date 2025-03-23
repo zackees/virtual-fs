@@ -4,6 +4,7 @@ Main entry point.
 
 import argparse
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -34,8 +35,17 @@ def parse_args() -> Args:
 
 def main() -> int:
     """Main entry point for the template_python_cmd package."""
+    from virtual_fs import Vfs
+
     args = parse_args()
     print(f"Mounting {args.src} to {args.mount_dst}")
+    with Vfs.mount(src=args.src, mount_dst=args.mount_dst):
+        try:
+            while True:
+
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("Exiting...")
     return 0
 
 
