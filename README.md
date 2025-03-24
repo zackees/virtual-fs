@@ -1,9 +1,10 @@
 # virtual-fs
 
-
 ![image](https://github.com/user-attachments/assets/0f9d5dbc-e0e5-4086-9c7a-fc8e08f57943)
 
-Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then  this api will allow you access to paths like `remote:Bucket/path/file.txt`.
+Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then this api will allow you access to paths like `remote:Bucket/path/file.txt`.
+
+Please note that main api does not use `FUSE`, so you can run this api in a docker container.
 
 ## ENVS
 
@@ -12,10 +13,15 @@ Powerful Virtual File abstraction api. Connects to any backend supported by Rclo
 
   * RCLONE_CONFIG_JSON
     * string content of rclone config.json
+   
+## Vs others
+
+  * fsspec - good alternative, but weakly typed.
+  * libfuse - this is a mount, virtual-fs is not a mount but an api and therefore can run in docker for unprivileged runtimes.
 
 ## Docker Users
 
-This library is built for you. If you are trying to do a `/mount` and having problems because of privileges then this api will give you an escape hatch. Instead mounting a virtual file system, you use an api in python that will grant you `ls`, `read`, `write` and directory traversal.
+This library is built for you. If you are trying to do a `/mount` and having problems because of privileges then this api will give you an escape hatch. Instead of mounting a virtual file system, you use an api in python that will grant you `ls`, `read`, `write` and directory traversal.
 
 To retro fit your code: Swap out `pathlib.Path` for `virtual_fs.FSPath` and apply minor fixes.
 
