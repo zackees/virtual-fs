@@ -107,8 +107,16 @@ def ls_command(args: LsArgs) -> int:
     print(f"Listing contents of {args.path}")
     with Vfs.begin(args.path) as cwd:
         files, dirs = cwd.ls()
-        print(f"Files: {files}")
-        print(f"Dirs: {dirs}")
+        # print(f"Files: {files}")
+        # print(f"Dirs: {dirs}")
+        if dirs:
+            print(f"Directories ({len(dirs)}):")
+            for d in dirs:
+                print(f"  {d}")
+        if files:
+            print(f"Files ({len(files)}):")
+            for f in files:
+                print(f"  {f}")
     return 0
 
 
