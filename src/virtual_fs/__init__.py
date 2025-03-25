@@ -3,7 +3,7 @@ from typing import Union
 
 from rclone_api import Config, FSPath, Mount, RealFS, RemoteFS  # Filesystem utilities
 
-RcloneConfig = Union[str, Path, Config, None]
+RcloneConfig = Union[str, Path, Config, dict, None]
 
 
 class Vfs:
@@ -61,7 +61,7 @@ class Vfs:
     ) -> Mount:
         from rclone_api import Rclone
 
-        if isinstance(rclone_conf, str):
+        if isinstance(rclone_conf, str) or isinstance(rclone_conf, dict):
             rclone_conf = Config(text=rclone_conf)
         assert rclone_conf is not None
         mount: Mount = Rclone(rclone_conf).mount(
