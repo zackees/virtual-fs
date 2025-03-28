@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/0f9d5dbc-e0e5-4086-9c7a-fc8e08f57943)
 
-Powerful Virtual File abstraction api. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then this api will allow you access to paths like `remote:Bucket/path/file.txt`.
+Powerful Virtual File abstraction api. Works without FUSE. Run in unorivledgef docker containers. Connects to any backend supported by Rclone. Drop in replacement for pathlib.Path. Works with both local and remote files. If you have an `rclone.conf` file in a default path then this api will allow you access to paths like `remote:Bucket/path/file.txt`.
 
 Please note that main api does not use `FUSE`, so you can run this api in a docker container.
 
