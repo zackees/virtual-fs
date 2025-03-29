@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Union
 
 from rclone_api import Config, FSPath, Mount, RealFS, RemoteFS  # Filesystem utilities
+from rclone_api.fs.walk_threaded_walker import FSWalker
 
 RcloneConfig = Union[str, Path, Config, dict, None]
 
@@ -98,4 +99,4 @@ class Vfs:
         return find_conf_file()
 
 
-__all__ = ["FSPath", "RemoteFS"]
+__all__ = ["FSPath", "RemoteFS", "RealFS", "Vfs", "FSWalker", "Mount"]
