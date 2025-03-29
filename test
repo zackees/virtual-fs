@@ -1,5 +1,5 @@
 #!/bin/bash
 
 set -e
-echo "Running unittests"
-uv run pytest -n auto tests -v
+echo "Running pytest"
+uv run pytest tests -v
